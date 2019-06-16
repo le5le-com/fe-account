@@ -1,0 +1,64 @@
+@import 'src/variables';
+@import '~le5le-ui/variables';
+
+.page {
+  min-width: 11rem;
+  height: 100vh;
+  background: linear-gradient(to bottom, #ed6848 0%, #ea4364 100%);
+  color: #fff;
+}
+
+.page > div {
+  height: 100%;
+  width: 11rem;
+  margin: auto;
+}
+
+.flex.middle > div {
+  padding: 0.5rem;
+}
+
+.slogan {
+  font-size: 0.14rem;
+  margin-top: -0.5rem;
+  line-height: 1.5;
+  width: 6rem;
+}
+
+.slogan img {
+  width: 1rem;
+  background: #fff;
+  border-radius: 50%;
+  padding: 0.05rem;
+}
+
+h1 {
+  color: #fff;
+  text-align: center;
+  font-weight: 400;
+  margin-bottom: 0.1rem;
+  margin-left: 0.2rem;
+}
+
+.tip {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.tip > div {
+  position: absolute;
+  top: 0.3rem;
+  left: 0;
+  right: 0;
+  width: 3rem;
+  margin: auto;
+  text-align: center;
+  padding: 0.08rem 0.3rem;
+  background: #fff;
+  color: $color-primary;
+  border-radius: 2px;
+}

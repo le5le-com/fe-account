@@ -1,0 +1,142 @@
+<div class="header" *ngIf="user">
+  <div class="item">
+    <a class="pl10" routerLink="/user"> <img src="/assets/img/favicon.ico" /> 乐吾乐 </a>
+  </div>
+
+  <div class="item full ph10"></div>
+  <div class="item">
+    <a target="_blank">帮助文档</a>
+  </div>
+  <div class="item">
+    <a target="_blank">支持与服务</a>
+  </div>
+
+  <div class="item ml10">
+    <div class="user">
+      <a class="pointer" style="padding: 0 .08rem" routerLink="/user">
+        <ui-avatar class="mr5" [letters]="user.usernamePinyin" [img]="user.avatarUrl"></ui-avatar>
+        {{ user.username }}
+        <i class="iconfont icon-angle-down"></i>
+      </a>
+      <div class="dropdown right">
+        <div class="item"><a routerLink="/user">个人中心</a></div>
+        <div class="item separator"></div>
+        <div class="item"><a (click)="onSignout()">退出</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="body-height">
+  <div class="sub-headline pb10">个人中心</div>
+
+  <div class="panel p20">
+    <div class="flex middle mb10">
+      <label class="text">头像：</label>
+      <div class="value" style="overflow: hidden">
+        <ui-avatar class="mr5" [letters]="user.usernamePinyin" [img]="user.avatarUrl"></ui-avatar>
+      </div>
+      <!-- <div class="gray ml10">可点击头像上传新头像图片</div> -->
+    </div>
+
+    <div class="flex middle mb10">
+      <label class="text">姓名：</label>
+      <div>
+        <label class="value">{{ user.username }}</label>
+        <button class="ml10 button primary" (click)="onEditUsername()">修改</button>
+      </div>
+    </div>
+
+    <div class="flex middle mb10">
+      <label class="text">手机号：</label>
+      <div>
+        <label class="value" [class.gray]="!user.phone">{{ user.phone || '未绑定' }}</label>
+        <button class="ml10 button primary" (click)="onEditPhone()">绑定</button>
+      </div>
+    </div>
+
+    <div class="flex middle mb10">
+      <label class="text">邮箱：</label>
+      <div>
+        <label class="value" [class.gray]="!user.email">{{ user.email || '未绑定' }}</label>
+        <button class="ml10 button primary" (click)="onEditEmail()">绑定</button>
+      </div>
+    </div>
+
+    <div class="flex mt20">
+      <div class="text">账号安全程度：</div>
+      <div class="value">
+        <ui-progress
+          style="display:inline-block;width:2.2rem"
+          [class.ui-warning]="security < 0.8"
+          [class.ui-error]="security < 0.6"
+          [(ngModel)]="security"
+          total="1"
+          [options]="securityOptions"
+        ></ui-progress>
+      </div>
+      <div class="ml10 gray" *ngIf="!user.phone">请绑定手机号提高安全程度！</div>
+      <div class="ml10 gray" *ngIf="user.phone">Good，您的账号安全程度良好！</div>
+    </div>
+  </div>
+
+  <form
+    *ngIf="user.phone || user.email"
+    #passwordForm="ngForm"
+    (ngSubmit)="onSavePassword()"
+    [uiTouchForm]="passwordForm"
+  >
+    <div class="flex">
+      <div class="sub-headline mt50 pb10">
+        {{ user.password ? '修改密码' : '设置密码' }}
+      </div>
+      <div class="ml20 gray mt50 pb10" *ngIf="!user.password" style="align-self: center">
+        您当前是第三方登录的账号，你可以设置一个密码，下次可以使用手机或邮箱 + 密码得方式登录
+      </div>
+    </div>
+    <div class="panel p20">
+      <div class="flex mb10" *ngIf="user.password">
+        <label class="text">原密码：</label>
+        <div>
+          <input type="password" name="old" class="input" [(ngModel)]="password.old" required />
+          <div *ngIf="!password.old" class="error">
+            请输入原密码
+          </div>
+        </div>
+      </div>
+      <div class="flex mb10">
+        <label class="text">新密码：</label>
+        <div>
+          <input
+            type="password"
+            name="new"
+            class="input"
+            [(ngModel)]="password.new"
+            #pwdCtrl="ngModel"
+            uiIsPassword
+            required
+          />
+          <div *ngIf="pwdCtrl.invalid" class="error">
+            请输入不包含空格，长度为8-20个字符，必须同时包含数字和字母的新密码。
+          </div>
+        </div>
+      </div>
+      <div class="flex mb10">
+        <label class="text">确认密码：</label>
+        <div>
+          <input type="password" name="confirm" class="input" [(ngModel)]="password.confirm" required />
+          <div *ngIf="password.new !== password.confirm" class="error">
+            新密码和确认密码不一致
+          </div>
+        </div>
+      </div>
+      <div class="flex middle mb10">
+        <label class="text"></label>
+        <div>
+          <button class="button primary" [disabled]="password.saving">
+            {{ user.password ? '修改密码' : '设置密码' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

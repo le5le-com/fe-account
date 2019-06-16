@@ -1,0 +1,24 @@
+@import 'src/variables';
+@import '~le5le-ui/variables';
+
+form {
+  width: 4rem;
+  padding: 0.3rem;
+  background: #fff;
+  color: $color;
+}
+
+form input,
+form button {
+  width: 100%;
+  line-height: 2.4;
+  font-size: 0.14rem;
+}
+
+.input + .status::after {
+  top: -0.33rem;
+}
+
+a {
+  color: #ec5953;
+}

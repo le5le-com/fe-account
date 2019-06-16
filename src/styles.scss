@@ -1,0 +1,180 @@
+@import 'variables';
+@import 'node_modules/le5le-ui/index';
+
+.mt100 {
+  margin-top: 1rem;
+}
+
+.header .item.right .sign a {
+  font-size: 0.12rem;
+}
+
+.header .item.right .sign > span > a {
+  font-size: 0.16rem;
+  font-weight: 100;
+  padding: 0 0.1rem;
+}
+
+.header .item.active a,
+.header .item a.active {
+  color: $color-primary !important;
+}
+
+.header .item a:hover,
+.header .item .user:hover,
+.header.item a.active.deactive:hover {
+  color: $color-primary !important;
+  background-color: transparent;
+}
+
+.header .item ui-avatar {
+  vertical-align: middle;
+  margin-top: -0.03rem;
+}
+
+.header .item .ui-avatar img {
+  max-height: 0.3rem;
+  vertical-align: inherit;
+}
+
+.body-height {
+  height: calc(100vh - 0.6rem);
+  overflow: auto;
+  position: relative;
+}
+
+.user:hover .icon-triangle-down {
+  color: $color-primary;
+}
+
+.header .dropdown {
+  background: #3f4142;
+  color: #fff;
+  min-width: 2rem;
+  padding-top: 0.07rem;
+  padding-bottom: 0.07rem;
+}
+
+.dot {
+  display: inline-block;
+  width: 0.08rem;
+  height: 0.08rem;
+  border-radius: 50%;
+  background-color: $color-gray;
+  position: relative;
+  top: 1px;
+}
+
+.dot.primary {
+  background-color: $color-primary;
+}
+
+.dot.success {
+  background-color: $color-success;
+}
+
+.dot.error {
+  background-color: $color-error;
+}
+
+.headline {
+  font-size: 0.24rem;
+  color: $color-title;
+}
+
+.sub-headline,
+.sub-headline i {
+  font-size: 0.18rem;
+  color: $color-title;
+}
+
+.title {
+  color: $color-title;
+  font-weight: 600;
+}
+
+.title.success {
+  color: $color-success;
+}
+
+.popup-title {
+  font-size: 0.14rem;
+  font-weight: 700;
+}
+
+.notice .icon-close {
+  font-size: 0.1rem;
+  top: 0.08rem;
+}
+
+.notice .body > .icon::before {
+  top: 0.02rem;
+}
+
+.radio > span,
+.checkbox > span {
+  top: -0.02rem;
+}
+
+.checkbox > span:before {
+  top: 0.01rem;
+}
+
+.header {
+  background: #fff;
+  color: $color;
+  height: 0.5rem;
+  line-height: 0.5rem;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.08);
+
+  .item {
+    color: $color;
+    a {
+      color: $color !important;
+      font-size: 0.13rem;
+      padding: 0 0.15rem;
+
+      img {
+        position: relative;
+        top: -0.03rem;
+        max-height: 0.24rem;
+        margin-right: 0.05rem;
+      }
+    }
+
+    .dropdown {
+      top: 0.51rem;
+      background: #fff;
+      color: $color;
+      &::before {
+        color: #fff;
+      }
+
+      a {
+        font-size: 0.13rem !important;
+      }
+
+      .item.separator {
+        border-color: #eee;
+        margin: 0.06rem 0 0.05rem 0;
+      }
+    }
+  }
+}
+
+/*定义滚动条轨道 内阴影+圆角*/
+::-webkit-scrollbar {
+  width: 0.1rem;
+  height: 0.1rem;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/*滚动条里面小方块*/
+::-webkit-scrollbar-thumb {
+  border-radius: 0.05rem;
+  background: #ccc;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
+}

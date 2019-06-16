@@ -1,0 +1,32 @@
+.body-height {
+  height: 100vh !important;
+}
+
+footer {
+  /* position: fixed; */
+  width: 100vw;
+  bottom: 0.3rem;
+  color: #fff;
+  border: none;
+}
+
+.login-bk {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url(/assets/img/mountains.jpg);
+  background-attachment: scroll;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.login-bk > div {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+}

@@ -1,0 +1,30 @@
+<div class="page">
+  <div class="flex middle">
+    <div class="slogan">
+      <div class="flex center middle">
+        <img src="assets/img/logo.png" />
+        <h1>乐吾乐 - 乐我所乐</h1>
+      </div>
+
+      <div class="desc mt30">
+        <p class="mt20">开心、健康、快乐，当暖暖的阳光洒在脸上，露出惬意的微笑，是我每天最想做的事。</p>
+        <p class="mt20">
+          喜欢运动的音符，喜欢洋溢的青春；那一点点梦想，一直都在前方的天空，照影出我身后一个一个的脚印。
+        </p>
+        <p class="mt20">
+          也许我有很多缺点，但我很认真的活在每一个当下。爱自己、爱家人、爱朋友，热心对待身边每一个来来往往的人。
+        </p>
+      </div>
+    </div>
+    <div>
+      <app-login *ngIf="type === 'login'" (typeChange)="type = $event"></app-login>
+      <app-signup *ngIf="type === 'signup'" (typeChange)="type = $event"></app-signup>
+      <app-password *ngIf="type === 'password'" (typeChange)="type = $event"></app-password>
+    </div>
+  </div>
+</div>
+<div class="tip" *ngIf="github.code">
+  <div>
+    <i class="iconfont icon-loading icon-spin mr5" style="font-size:0.14rem"></i> 正在获取Github用户授权信息，请稍等...
+  </div>
+</div>
