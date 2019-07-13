@@ -15,8 +15,8 @@ form button {
   font-size: 0.14rem;
 }
 
-.input + .status::after {
-  top: -0.33rem;
+.input + .status {
+  top: -0.32rem;
 }
 
 a {
@@ -24,34 +24,7 @@ a {
 }
 
 .code {
-  position: relative;
-}
-
-.code input {
-  padding-right: 1.5rem;
-}
-
-.code a {
-  position: absolute;
-  top: 0.06rem;
-  right: 0.1rem;
-}
-
-.code .ng-pristine.ng-invalid ~ a,
-.code .ng-touched ~ a {
-  right: 0.3rem;
-}
-
-.code .ng-untouched.ng-invalid ~ a {
-  right: 0.1rem;
-}
-
-.picture .input {
-  width: inherit;
-}
-
-.picture img {
-  height: 0.4rem;
-  flex: 1;
-  margin-left: 0.1rem;
+  a {
+    top: 0.06rem;
+  }
 }

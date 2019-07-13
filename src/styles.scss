@@ -162,6 +162,49 @@
   }
 }
 
+.code {
+  position: relative;
+  input {
+    padding-right: 1.5rem;
+  }
+  a {
+    position: absolute;
+    top: 0.03rem;
+    right: 0.1rem;
+  }
+
+  .ng-pristine.ng-invalid ~ a,
+  .ng-touched ~ a {
+    right: 0.3rem;
+  }
+
+  .ng-untouched.ng-invalid ~ a {
+    right: 0.1rem;
+  }
+}
+
+.picture .input {
+  width: inherit;
+}
+
+.picture img {
+  height: 0.4rem;
+  flex: 1;
+  margin-left: 0.1rem;
+}
+
+.ui-progress > .bk > div {
+  background-color: $color-success !important;
+}
+
+.ui-avatar {
+  span {
+    position: relative;
+    font-size: 0.16rem;
+    top: -0.02rem;
+  }
+}
+
 /*定义滚动条轨道 内阴影+圆角*/
 ::-webkit-scrollbar {
   width: 0.1rem;

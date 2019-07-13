@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
-import { NoticeService } from 'le5le-components';
+import { NoticeService } from 'le5le-components/notice';
 
 import { SignupService } from './signup.service';
 import { CoreService } from 'src/app/core/core.service';
@@ -67,7 +67,7 @@ export class SignupComponent implements OnInit {
     if (await this._service.GetCode(this.data)) {
       _noticeService.notice({
         theme: 'success',
-        body: '注册验证码已发送，请查收手机或邮箱!'
+        body: '注册验证码已发送，请在手机或邮箱上查收!'
       });
       this.code.second = 60;
       this.timer = setInterval(() => {
@@ -90,6 +90,7 @@ export class SignupComponent implements OnInit {
     const ret = await this._service.Signup(this.data);
     if (ret) {
       this._coreService.saveToken(ret);
+      this._coreService.goUser();
     }
   }
 

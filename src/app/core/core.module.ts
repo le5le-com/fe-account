@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { StoreService, CookieService } from 'le5le-store';
 
-import { NoticeService } from 'le5le-components';
+import { NoticeService } from 'le5le-components/notice';
 import { HttpService } from '../http/http.service';
 import { environment } from '../../environments/environment';
 import { CoreService } from './core.service';
@@ -31,13 +31,12 @@ export class CoreModule {
       throw new Error('CoreModule is already loaded. Import it in the AppModule only');
     }
 
-    this._storeService.set('author', 'alsmile');
+    this._storeService.set('author', 'alsmile123@qq.com');
 
     // 监听用户认证
     this._storeService.get$('auth').subscribe(ret => {
       // 认证失败
       if (ret === -1) {
-        localStorage.removeItem(environment.token);
         CookieService.delete(environment.token, {
           domain: document.domain
             .split('.')
@@ -91,7 +90,9 @@ export class CoreModule {
       }
     };
 
-    // this.socket.onopen = (event: any) => {};
+    this.socket.onopen = (event: any) => {
+      this.socket.send(JSON.stringify({ event: 'token', data: CookieService.get(environment.token) }));
+    };
 
     this.socket.onclose = (event: any) => {
       console.log('websocket close and reconneting...');
@@ -110,13 +111,16 @@ export class CoreModule {
 
   async onProfile(): Promise<void> {
     const ret = await this._httpService.Get('/api/user/profile');
-    if (!ret.error) {
-      this._storeService.set('user', ret);
-      this.initWebsocket();
+    if (ret.error) {
+      return;
+    }
 
-      if (location.pathname.indexOf('/user') !== 0) {
-        this._coreService.goUser();
-      }
+    ret.usernamePinyin = this._coreService.getPinyin(ret.username);
+    this._storeService.set('user', ret);
+    this.initWebsocket();
+
+    if (location.pathname.indexOf('/user') !== 0) {
+      this._coreService.goUser();
     }
   }
 }

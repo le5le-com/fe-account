@@ -519,20 +519,20 @@ export class CoreService {
     return '';
   }
 
-  saveToken(user: { token: string }) {
+  saveToken(data: { token: string }) {
+    const options: any = {
+      domain: document.domain
+        .split('.')
+        .slice(-2)
+        .join('.')
+    };
     const remember: any = localStorage.getItem('rememberMe');
     if (remember) {
-      localStorage.setItem(environment.token, user.token);
-    } else {
-      CookieService.set(environment.token, user.token, {
-        domain: document.domain
-          .split('.')
-          .slice(-2)
-          .join('.')
-      });
+      // 1 year.
+      options.expires = 365;
     }
 
-    this.goUser();
+    CookieService.set(environment.token, data.token, options);
   }
 
   goUser() {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-oauth',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./oauth.component.scss']
 })
 export class OAuthComponent implements OnInit {
-  github = 'https://github.com/login/oauth/authorize?client_id=251603d7a2c3acfe1648&scope=user&state=github';
+  github = `https://github.com/login/oauth/authorize?client_id=${environment.githubClientId}&scope=user&state=github`;
 
   constructor() {}
 

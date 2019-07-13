@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
-import { NoticeService } from 'le5le-components';
+import { NoticeService } from 'le5le-components/notice';
 
 import { PasswordService } from './password.service';
 import { CoreService } from 'src/app/core/core.service';
@@ -90,6 +90,7 @@ export class PasswordComponent implements OnInit {
     const ret = await this._service.Password(this.data);
     if (ret) {
       this._coreService.saveToken(ret);
+      this._coreService.goUser();
     }
   }
 

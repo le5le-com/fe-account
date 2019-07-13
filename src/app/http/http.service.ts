@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ResponseContentType } from '@angular/http';
 
 import * as FileSaver from 'file-saver';
 
@@ -100,7 +99,7 @@ export class HttpService {
     if (!options) {
       options = {};
     }
-    options.responseType = ResponseContentType.Blob;
+    options.responseType = 'blob';
 
     const sub = this.http.get(url, options).subscribe(
       res => {

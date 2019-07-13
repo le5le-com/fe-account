@@ -23,6 +23,10 @@ export class HomeComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
+    if (this._activateRoute.snapshot.queryParams['signup']) {
+      this.type = 'signup';
+    }
+
     this.github.code = this._activateRoute.snapshot.queryParams['code'] || '';
     this.github.state = this._activateRoute.snapshot.queryParams['state'] || '';
     if (!this.github.code) {
@@ -36,6 +40,7 @@ export class HomeComponent implements OnInit {
     });
     if (ret) {
       this._coreService.saveToken(ret);
+      this._coreService.goUser();
     } else {
       this.github = {
         code: '',

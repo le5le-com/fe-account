@@ -4,42 +4,18 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse } fr
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { NoticeService } from 'le5le-components';
+import { NoticeService } from 'le5le-components/notice';
 import { CookieService, StoreService } from 'le5le-store';
 import { environment } from 'src/environments/environment';
+import { CoreService } from '../core/core.service';
 
 @Injectable()
 export class AppHttpInterceptor implements HttpInterceptor {
-  constructor(protected store: StoreService) {}
-
-  private getToken(): string {
-    const remember: any = localStorage.getItem('rememberMe');
-    if (remember) {
-      return localStorage.getItem(environment.token);
-    } else {
-      return CookieService.get(environment.token);
-    }
-  }
-
-  private setToken(token: string) {
-    const domains = document.domain.split('.');
-    let strDomain = '';
-    for (let i = domains.length - 1; i > 0 && i > domains.length - 4; --i) {
-      strDomain = domains[i] + '.' + strDomain;
-    }
-    strDomain = strDomain.substr(0, strDomain.length - 1);
-
-    const remember: any = localStorage.getItem('rememberMe');
-    if (remember) {
-      localStorage.setItem(environment.token, token);
-    } else {
-      CookieService.set(environment.token, token, { domain: strDomain });
-    }
-  }
+  constructor(protected store: StoreService, protected coreService: CoreService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const authReq = req.clone({
-      headers: req.headers.set('Authorization', this.getToken())
+      headers: req.headers.set('Authorization', CookieService.get(environment.token))
     });
     return next.handle(authReq).pipe(
       tap(
@@ -48,7 +24,7 @@ export class AppHttpInterceptor implements HttpInterceptor {
           if (event instanceof HttpResponse) {
             // Update token.
             if (event.headers.get(environment.token)) {
-              this.setToken(event.headers.get(environment.token));
+              this.coreService.saveToken({ token: event.headers.get(environment.token) });
             }
 
             // Pop error.

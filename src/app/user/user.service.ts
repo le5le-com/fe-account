@@ -14,8 +14,8 @@ export class UserService {
     return ret;
   }
 
-  async Username(params: any) {
-    const ret = await this.http.Post('/api/user/username', params);
+  async Profile(params: any) {
+    const ret = await this.http.Put('/api/user/profile', params);
     if (ret.error) {
       return false;
     }
@@ -23,7 +23,7 @@ export class UserService {
     return ret;
   }
 
-  async EditPwd(params: any) {
+  async Password(params: any) {
     const ret = await this.http.Put('/api/user/password', params);
     if (!ret || ret.error) {
       return false;
@@ -32,9 +32,18 @@ export class UserService {
     return true;
   }
 
-  async PhoneCode(params: any) {
-    const ret = await this.http.Post('/api/user/sms/send/edit', params);
-    if (!ret || ret.error) {
+  async GetPhoneCode(params: any) {
+    const ret = await this.http.QueryString(params).Get('/api/phone/sms');
+    if (ret.error) {
+      return false;
+    }
+
+    return true;
+  }
+
+  async GetEmailCode(params: any) {
+    const ret = await this.http.QueryString(params).Get('/api/email/sms');
+    if (ret.error) {
       return false;
     }
 
@@ -42,17 +51,10 @@ export class UserService {
   }
 
   async SavePhone(params: any) {
-    const ret = await this.http.Put('/api/user/mobile', params);
-    if (!ret || ret.error) {
-      return false;
-    }
-
-    return true;
-  }
-
-  async EmailCode(params: any) {
-    const ret = await this.http.Post('/api/user/email/send/edit', params);
-    if (!ret || ret.error) {
+    const user: any = Object.assign({}, params);
+    user.captcha = user.code;
+    const ret = await this.http.Put('/api/user/phone', user);
+    if (ret.error) {
       return false;
     }
 
@@ -60,17 +62,10 @@ export class UserService {
   }
 
   async SaveEamil(params: any) {
-    const ret = await this.http.Put('/api/user/email', params);
-    if (!ret || ret.error) {
-      return false;
-    }
-
-    return true;
-  }
-
-  async SaveAvatar(params: any) {
-    const ret = await this.http.Put('/api/user/profile', params);
-    if (!ret || ret.error) {
+    const user: any = Object.assign({}, params);
+    user.captcha = user.code;
+    const ret = await this.http.Put('/api/user/email', user);
+    if (ret.error) {
       return false;
     }
 

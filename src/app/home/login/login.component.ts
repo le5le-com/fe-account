@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
 
     const ret = await this._service.Login(this.data);
     this._coreService.saveToken(ret);
+    this._coreService.goUser();
   }
 
   onRemember() {
