@@ -52,7 +52,10 @@ export class CoreModule {
 
         this._storeService.set('user', null);
       } else if (ret === 1) {
-        this._router.navigateByUrl('/user');
+        console.log(1231231);
+        if (location.pathname === '/') {
+          this._router.navigateByUrl('/user/profile');
+        }
       }
     });
 
@@ -119,8 +122,6 @@ export class CoreModule {
     this._storeService.set('user', ret);
     this.initWebsocket();
 
-    if (location.pathname.indexOf('/user') !== 0) {
-      this._coreService.goUser();
-    }
+    this._coreService.goHome();
   }
 }

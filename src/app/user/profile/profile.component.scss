@@ -1,0 +1,43 @@
+.body {
+  margin: auto;
+  padding: 0.5rem;
+  max-width: 12.5rem;
+}
+
+ui-image-upload {
+  position: absolute;
+  left: 0;
+  top: 0;
+  cursor: pointer;
+  opacity: 0;
+  outline: none;
+}
+
+.flex {
+  .text {
+    width: 1rem;
+    margin-right: 0;
+  }
+
+  .value {
+    display: inline-block;
+    width: 3rem;
+  }
+}
+
+.input-container {
+  position: relative;
+
+  a {
+    position: absolute;
+    right: 0.1rem;
+    top: 0.03rem;
+  }
+}
+
+.c-label {
+  display: inline-block;
+  width: 0.5rem;
+  font-weight: 700;
+  text-align-last: justify;
+}

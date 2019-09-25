@@ -9,19 +9,27 @@ import { StoreService } from 'le5le-store';
 })
 export class AppComponent implements OnInit, OnDestroy {
   user: any;
-  sub$: any;
-  constructor(private _storeService: StoreService) {}
+  user$: any;
+
+  showService = false;
+  constructor(private storeService: StoreService) {}
 
   async ngOnInit(): Promise<void> {
-    // 监听用户信息
-    this.sub$ = this._storeService.get$('user').subscribe(ret => {
+    this.user = this.storeService.get('user');
+    this.user$ = this.storeService.get$('user').subscribe(ret => {
       this.user = ret;
     });
   }
 
+  onService() {
+    this.showService = true;
+  }
+
+  onSignout() {
+    this.storeService.set('auth', -1);
+  }
+
   ngOnDestroy() {
-    if (this.sub$) {
-      this.sub$.unsubscribe();
-    }
+    this.user$.unsubscribe();
   }
 }

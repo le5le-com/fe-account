@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 
 import { SharedModule } from '../shared/shared.module';
+import { UserRoutingModule } from './user-routing.module';
 
 import { UserComponent } from './user.component';
-import { UserRoutingModule } from './user-routing.module';
-import { VipPipe } from './user.pipe';
+import { UserProfileComponent } from './profile/profile.component';
 
 @NgModule({
   imports: [SharedModule, UserRoutingModule],
-  declarations: [UserComponent, VipPipe]
+  declarations: [UserComponent, UserProfileComponent]
 })
 export class UserModule {}

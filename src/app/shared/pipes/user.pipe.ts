@@ -1,11 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Pipe({
   name: 'vip'
 })
 export class VipPipe implements PipeTransform {
-  constructor(private sanitizer: DomSanitizer) {}
+  constructor() {}
 
   transform(val: number) {
     switch (val) {

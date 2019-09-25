@@ -22,6 +22,7 @@ import { ProgressModule } from 'le5le-components/progress';
 // import { RateModule } from 'le5le-components/rate';
 
 import { HtmlPipe } from './pipes/html.pipe';
+import { VipPipe } from './pipes/user.pipe';
 
 @NgModule({
   imports: [
@@ -40,13 +41,14 @@ import { HtmlPipe } from './pipes/html.pipe';
     MoveModule,
     ProgressModule
   ],
-  declarations: [HtmlPipe],
+  declarations: [HtmlPipe, VipPipe],
   exports: [
     CommonModule,
     FormsModule,
     RouterModule,
     ReactiveFormsModule,
     HtmlPipe,
+    VipPipe,
     FormModule,
     AvatarModule,
     EscModule,

@@ -9,7 +9,8 @@ const routes: Routes = [
     component: HomeComponent,
     pathMatch: 'full'
   },
-  { path: 'user', loadChildren: './user/user.module#UserModule' }
+  { path: 'user', loadChildren: './user/user.module#UserModule' },
+  { path: 'admin', loadChildren: './admin/admin.module#AdminModule' }
 ];
 
 @NgModule({

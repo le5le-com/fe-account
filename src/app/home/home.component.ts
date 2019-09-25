@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
     });
     if (ret) {
       this._coreService.saveToken(ret);
-      this._coreService.goUser();
+      this._coreService.goHome();
     } else {
       this.github = {
         code: '',

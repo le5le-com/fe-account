@@ -1,0 +1,51 @@
+<div class="p50" *ngIf="!loading">
+  <div>
+    <label class="mr5">用户名</label>
+    <input class="input mr20" [(ngModel)]="search.username" (keydown.enter)="onSearch()" />
+    <label class="mr5">手机</label>
+    <input class="input mr20" [(ngModel)]="search.phone" (keydown.enter)="onSearch()" />
+    <label class="mr5">邮箱</label>
+    <input class="input mr20" [(ngModel)]="search.email" (keydown.enter)="onSearch()" />
+    <button class="button primary" (click)="onSearch()">搜索</button>
+  </div>
+  <table class="mt20">
+    <tr>
+      <th>用户名</th>
+      <th>手机</th>
+      <th>邮箱</th>
+      <th>角色</th>
+      <th>微信</th>
+      <th>GitHub</th>
+      <th>VIP</th>
+      <th>创建时间</th>
+      <th>操作</th>
+    </tr>
+    <tr *ngFor="let item of data.list">
+      <td>{{ item.username }}</td>
+      <td>{{ item.phone }}</td>
+      <td>{{ item.email }}</td>
+      <td>{{ item.role }}</td>
+      <td>{{ item.wechat ? item.wechat.openId : '' }}</td>
+      <td>{{ item.github ? item.github.id : '' }}</td>
+      <td>
+        {{ item.vip | vip }}
+        <div *ngIf="item.vip" class="gray">到期时间：{{ item.vipExpiry | date: 'yyyy-MM-dd' }}</div>
+      </td>
+      <td>{{ item.createdAt | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+      <td>
+        <a class="mr20" (click)="onVip(item)">设置VIP</a>
+        <a class="mr20" (click)="onRole(item)" *ngIf="user && user.role.indexOf('admin') > -1">设置角色</a>
+      </td>
+    </tr>
+  </table>
+
+  <div class="p10 mb30" *ngIf="data.count">
+    <ui-pagination
+      [(pageIndex)]="search.pageIndex"
+      [(pageCount)]="search.pageCount"
+      [pageTotal]="data.count"
+    ></ui-pagination>
+  </div>
+</div>
+
+<ui-loading *ngIf="loading" class="mt50"></ui-loading>

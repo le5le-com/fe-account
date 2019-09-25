@@ -1,1 +1,55 @@
-<router-outlet></router-outlet>
+<div class="header" *ngIf="user">
+  <div class="item">
+    <a class="pl10" href="http://le5le.com" target="_blank"> <img src="/assets/img/favicon.ico" /> 乐吾乐 </a>
+  </div>
+
+  <div class="item full ph10"></div>
+  <div class="item">
+    <a (click)="onService()">支持与服务</a>
+  </div>
+
+  <div class="item" *ngIf="user.role.indexOf('operation') > -1">
+    <a routerLink="/admin/users">运营管理</a>
+  </div>
+
+  <div class="item ml10">
+    <div class="user">
+      <a class="pointer" style="padding: 0 .08rem" routerLink="/user/profile">
+        <ui-avatar
+          class="mr5"
+          [letters]="user.usernamePinyin"
+          [img]="user.avatarUrl"
+          [colors]="['#ff4d4f']"
+        ></ui-avatar>
+        {{ user.username }}
+        <i class="iconfont icon-angle-down"></i>
+      </a>
+      <div class="dropdown right">
+        <div class="item"><a routerLink="/user/profile">个人中心</a></div>
+        <div class="item separator"></div>
+        <div class="item"><a (click)="onSignout()">退出</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="body-height" [class.mt0]="!user">
+  <router-outlet></router-outlet>
+</div>
+
+<div class="modal" *ngIf="showService">
+  <div class="modal-content">
+    <div class="modal-header pointer" uiDivMove [isHead]="true">
+      <div class="caption">支持与服务</div>
+      <i class="fr iconfont icon-close" (click)="showService = null"></i>
+    </div>
+
+    <div class="modal-body ph30 pv20">
+      <p>乐吾乐 - 目前属于各人维护，欢迎大家参与支持。您有任何问题欢迎联系：</p>
+      <div><label class="c-label">微信号：</label>alsmile123</div>
+      <div><label class="c-label">邮箱：</label>alsmile123@qq.com</div>
+    </div>
+    <div class="modal-footer">
+      <button class="button primary ml10" (click)="showService = null">确定</button>
+    </div>
+  </div>
+</div>

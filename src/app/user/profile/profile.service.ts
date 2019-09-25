@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpService } from '../http/http.service';
+import { HttpService } from 'src/app/http/http.service';
 
 @Injectable()
-export class UserService {
+export class UserProfileService {
   public constructor(protected http: HttpService) {}
 
   async Detail() {

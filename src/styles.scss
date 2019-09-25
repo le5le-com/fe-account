@@ -5,54 +5,14 @@
   margin-top: 1rem;
 }
 
-.header .item.right .sign a {
-  font-size: 0.12rem;
-}
-
-.header .item.right .sign > span > a {
-  font-size: 0.16rem;
-  font-weight: 100;
-  padding: 0 0.1rem;
-}
-
-.header .item.active a,
-.header .item a.active {
-  color: $color-primary !important;
-}
-
-.header .item a:hover,
-.header .item .user:hover,
-.header.item a.active.deactive:hover {
-  color: $color-primary !important;
-  background-color: transparent;
-}
-
-.header .item ui-avatar {
-  vertical-align: middle;
-  margin-top: -0.03rem;
-}
-
-.header .item .ui-avatar img {
-  max-height: 0.3rem;
-  vertical-align: inherit;
-}
-
 .body-height {
-  height: calc(100vh - 0.6rem);
+  height: calc(100vh - 0.5rem);
   overflow: auto;
   position: relative;
 }
 
 .user:hover .icon-triangle-down {
   color: $color-primary;
-}
-
-.header .dropdown {
-  background: #3f4142;
-  color: #fff;
-  min-width: 2rem;
-  padding-top: 0.07rem;
-  padding-bottom: 0.07rem;
 }
 
 .dot {
@@ -63,18 +23,17 @@
   background-color: $color-gray;
   position: relative;
   top: 1px;
-}
 
-.dot.primary {
-  background-color: $color-primary;
-}
+  &.primary {
+    background-color: $color-primary;
+  }
 
-.dot.success {
-  background-color: $color-success;
-}
-
-.dot.error {
-  background-color: $color-error;
+  &.success {
+    background-color: $color-success;
+  }
+  &.error {
+    background-color: $color-error;
+  }
 }
 
 .headline {
@@ -91,10 +50,10 @@
 .title {
   color: $color-title;
   font-weight: 600;
-}
 
-.title.success {
-  color: $color-success;
+  &.success {
+    color: $color-success;
+  }
 }
 
 .popup-title {
@@ -102,13 +61,15 @@
   font-weight: 700;
 }
 
-.notice .icon-close {
-  font-size: 0.1rem;
-  top: 0.08rem;
-}
+.notice {
+  .icon-close {
+    font-size: 0.1rem;
+    top: 0.08rem;
+  }
 
-.notice .body > .icon::before {
-  top: 0.02rem;
+  .body > .icon::before {
+    top: 0.02rem;
+  }
 }
 
 .radio > span,
@@ -125,6 +86,7 @@
   color: $color;
   height: 0.5rem;
   line-height: 0.5rem;
+  padding: 0 0.1rem;
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.08);
 
   .item {
@@ -139,6 +101,15 @@
         top: -0.03rem;
         max-height: 0.24rem;
         margin-right: 0.05rem;
+      }
+    }
+
+    ui-avatar {
+      vertical-align: middle;
+      margin-top: -0.03rem;
+      img {
+        max-height: 0.3rem;
+        vertical-align: inherit;
       }
     }
 
@@ -183,14 +154,16 @@
   }
 }
 
-.picture .input {
-  width: inherit;
-}
+.picture {
+  .input {
+    width: inherit;
+  }
 
-.picture img {
-  height: 0.4rem;
-  flex: 1;
-  margin-left: 0.1rem;
+  img {
+    height: 0.4rem;
+    flex: 1;
+    margin-left: 0.1rem;
+  }
 }
 
 .ui-progress > .bk > div {

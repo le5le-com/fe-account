@@ -90,7 +90,7 @@ export class SignupComponent implements OnInit {
     const ret = await this._service.Signup(this.data);
     if (ret) {
       this._coreService.saveToken(ret);
-      this._coreService.goUser();
+      this._coreService.goHome();
     }
   }
 
