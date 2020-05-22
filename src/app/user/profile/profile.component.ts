@@ -1,5 +1,5 @@
 import { OnInit, OnDestroy, Component } from '@angular/core';
-import { StoreService } from 'le5le-store';
+import { Store } from 'le5le-store';
 
 import { UserProfileService } from './profile.service';
 import { NoticeService } from 'le5le-components/notice';
@@ -12,12 +12,9 @@ import { CoreService } from 'src/app/core/core.service';
   providers: [UserProfileService]
 })
 export class UserProfileComponent implements OnInit, OnDestroy {
-  user: any = {};
+  user: any;
 
-  security = 0.3;
-  securityOptions = {
-    customDesc: '低'
-  };
+  security = 30;
 
   password = {
     old: '',
@@ -47,9 +44,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   timer;
   constructor(
     private _service: UserProfileService,
-    private _storeService: StoreService,
     private _coreService: CoreService
-  ) {}
+  ) { }
 
   async ngOnInit() {
     this.user = await this._service.Detail();
@@ -62,11 +58,9 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   getSecurity() {
     if (this.user.phone) {
-      this.security = 1;
-      this.securityOptions.customDesc = '高';
+      this.security = 100;
     } else if (this.user.email) {
-      this.security = 0.7;
-      this.securityOptions.customDesc = '中';
+      this.security = 70;
     }
   }
 
@@ -86,7 +80,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
         if (ret) {
           this.user.username = username;
           this.user.usernamePinyin = this._coreService.getPinyin(username);
-          this._storeService.set('user', this.user);
+          Store.set('user', this.user);
         }
       }
     });
@@ -157,7 +151,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     const ret = await this._service.SavePhone(this.phone);
     if (ret) {
       this.user.phone = this.phone.phone;
-      this._storeService.set('user', this.user);
+      Store.set('user', this.user);
       this.phone = null;
     }
   }
@@ -223,7 +217,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     const ret = await this._service.SaveEamil(this.email);
     if (ret) {
       this.user.email = this.email.email;
-      this._storeService.set('user', this.user);
+      Store.set('user', this.user);
     }
 
     this.email = null;

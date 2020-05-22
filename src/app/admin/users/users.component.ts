@@ -2,7 +2,7 @@ import { OnInit, OnDestroy, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { NoticeService } from 'le5le-components/notice';
-import { StoreService } from 'le5le-store';
+import { Store } from 'le5le-store';
 
 import { AdminUsersService } from './users.service';
 
@@ -16,9 +16,8 @@ export class AdminUsersComponent implements OnInit, OnDestroy {
   constructor(
     private service: AdminUsersService,
     private router: Router,
-    private activateRoute: ActivatedRoute,
-    private storeService: StoreService
-  ) {}
+    private activateRoute: ActivatedRoute
+  ) { }
   search = {
     username: '',
     phone: '',
@@ -38,8 +37,7 @@ export class AdminUsersComponent implements OnInit, OnDestroy {
 
   route$: any;
   async ngOnInit() {
-    this.user = this.storeService.get('user');
-    this.user$ = this.storeService.get$('user').subscribe(ret => {
+    this.user$ = Store.subscribe('user', ret => {
       this.user = ret;
     });
 

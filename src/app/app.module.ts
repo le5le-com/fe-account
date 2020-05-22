@@ -3,8 +3,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { Le5leStoreModule } from 'le5le-store';
-
 import { AppHttpInterceptor } from './http/http.interceptor';
 
 import { CoreModule } from './core/core.module';
@@ -26,7 +24,6 @@ import { OAuthComponent } from './home/oauth/oauth.component';
     BrowserAnimationsModule,
     HttpClientModule,
     SharedModule,
-    Le5leStoreModule.forRoot(),
     CoreModule.forRoot(),
     AppRoutingModule
   ],
@@ -39,4 +36,4 @@ import { OAuthComponent } from './home/oauth/oauth.component';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

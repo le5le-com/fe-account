@@ -2,12 +2,12 @@ import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
-import { StoreService, CookieService } from 'le5le-store';
-
+import { Store, Cookie } from 'le5le-store';
 import { NoticeService } from 'le5le-components/notice';
+
 import { HttpService } from '../http/http.service';
-import { environment } from '../../environments/environment';
 import { CoreService } from './core.service';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   imports: [CommonModule],
@@ -17,13 +17,11 @@ import { CoreService } from './core.service';
 })
 export class CoreModule {
   private socket: WebSocket;
-  private socketCallback: any = {};
   constructor(
     @Optional()
     @SkipSelf()
     parentModule: CoreModule,
     private _router: Router,
-    private _storeService: StoreService,
     private _httpService: HttpService,
     private _coreService: CoreService
   ) {
@@ -31,36 +29,24 @@ export class CoreModule {
       throw new Error('CoreModule is already loaded. Import it in the AppModule only');
     }
 
-    this._storeService.set('author', 'alsmile123@qq.com');
+    Store.set('author', 'alsmile123@qq.com');
 
     // 监听用户认证
-    this._storeService.get$('auth').subscribe(ret => {
+    Store.subscribe('auth', (ret: any) => {
       // 认证失败
       if (ret === -1) {
-        CookieService.delete(environment.token, {
-          domain: document.domain
-            .split('.')
-            .slice(-2)
-            .join('.')
-        });
-
+        this._coreService.removeToken();
         if (location.pathname.indexOf('/user') > -1) {
           this._router.navigate(['/'], {
             queryParams: { cb: encodeURIComponent(window.location.href) }
           });
         }
-
-        this._storeService.set('user', null);
-      } else if (ret === 1) {
-        console.log(1231231);
-        if (location.pathname === '/') {
-          this._router.navigateByUrl('/user/profile');
-        }
+        Store.set('user', null);
       }
     });
 
     // 监听是否需要重定向
-    this._storeService.get$('redirect').subscribe(ret => {
+    Store.subscribe('redirect', (ret: string) => {
       if (ret) {
         this._router.navigateByUrl(ret);
       }
@@ -80,21 +66,15 @@ export class CoreModule {
     // 连接websocket
     const wsUrl: string = (location.protocol === 'http:' ? 'ws://' : 'wss://') + location.host + '/ws';
     this.socket = new WebSocket(wsUrl);
-    this._storeService.set('socket', this.socket);
-    this._storeService.set('socketCallback', this.socketCallback);
     this.socket.onmessage = (e: any) => {
-      if (!e.data) {
+      if (!e || !e.data) {
         return;
       }
 
-      const msg: any = JSON.parse(e.data);
-      if (msg && this.socketCallback[msg.cb]) {
-        this.socketCallback[msg.cb](msg);
-      }
     };
 
     this.socket.onopen = (event: any) => {
-      this.socket.send(JSON.stringify({ event: 'token', data: CookieService.get(environment.token) }));
+      this.socket.send(JSON.stringify({ event: 'token', data: Cookie.get(environment.token) }));
     };
 
     this.socket.onclose = (event: any) => {
@@ -119,9 +99,8 @@ export class CoreModule {
     }
 
     ret.usernamePinyin = this._coreService.getPinyin(ret.username);
-    this._storeService.set('user', ret);
-    this.initWebsocket();
-
+    Store.set('user', ret);
+    // this.initWebsocket();
     this._coreService.goHome();
   }
 }

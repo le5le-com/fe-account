@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { StoreService } from 'le5le-store';
+import { Store } from 'le5le-store';
 
 @Component({
   selector: 'app-root',
@@ -12,11 +12,10 @@ export class AppComponent implements OnInit, OnDestroy {
   user$: any;
 
   showService = false;
-  constructor(private storeService: StoreService) {}
+  constructor() { }
 
   async ngOnInit(): Promise<void> {
-    this.user = this.storeService.get('user');
-    this.user$ = this.storeService.get$('user').subscribe(ret => {
+    this.user$ = Store.subscribe('user', ret => {
       this.user = ret;
     });
   }
@@ -26,7 +25,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   onSignout() {
-    this.storeService.set('auth', -1);
+    Store.set('auth', -1);
   }
 
   ngOnDestroy() {

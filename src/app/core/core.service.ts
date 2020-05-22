@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { CookieService, StoreService } from 'le5le-store';
+import { Store, Cookie } from 'le5le-store';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -430,7 +430,7 @@ export class CoreService {
   };
   chineseDist: any = {};
 
-  public constructor(private _router: Router, private storeService: StoreService) {
+  public constructor(private _router: Router) {
     // tslint:disable-next-line:forin
     for (const i in this.pinyinDictNotone) {
       const temp = this.pinyinDictNotone[i];
@@ -519,8 +519,8 @@ export class CoreService {
     return '';
   }
 
-  saveToken(data: { token: string }) {
-    this.storeService.set('user', data);
+  saveToken(data: { token: string; }) {
+    Store.set('user', data);
     const options: any = {
       domain: document.domain
         .split('.')
@@ -533,7 +533,16 @@ export class CoreService {
       options.expires = 365;
     }
 
-    CookieService.set(environment.token, data.token, options);
+    Cookie.set(environment.token, data.token, options);
+  }
+
+  removeToken() {
+    Cookie.delete(environment.token, {
+      domain: document.domain
+        .split('.')
+        .slice(-2)
+        .join('.')
+    });
   }
 
   goHome() {
